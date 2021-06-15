@@ -49,8 +49,15 @@ func _process(_delta):
 		leftDelta[i] = 0
 		rightDelta[i] = 0
 		
-		if Input.is_action_pressed("Mouse Left"):
-			speed[spring_entered] -= 1
+		if Input.is_action_pressed("Mouse Left"):		
+			# Getting mouse position
+			var mousePos = get_global_mouse_position()
+			
+			# Calling collision
+			calculateCollisions(mousePos.x)
+			
+			# Adding force
+			speed[spring_entered] -= 0.5
 	
 	for j in passes:
 		for i in columns:
@@ -112,13 +119,4 @@ func calculateCollisions(var xPosition):
 	# converting to global var to that it can be used in process func and diving by 2
 	spring_entered = (int(water_column_spring) / 2)
 	
-	print("Collided Spring: ", spring_entered)
-
-
-
-func _on_Area2D_mouse_entered():
-	# Getting mouse position
-	var mousePos = get_global_mouse_position()
-	
-	# Calling collision
-	calculateCollisions(mousePos.x)
+	# print("Collided Spring: ", spring_entered)
